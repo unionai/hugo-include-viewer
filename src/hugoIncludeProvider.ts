@@ -20,24 +20,24 @@ export class HugoIncludeProvider {
     public findIncludes(document: vscode.TextDocument): IncludeMatch[] {
         const config = vscode.workspace.getConfiguration('hugo-include-viewer');
         const patterns = config.get<string[]>('includePatterns', []);
-        
+
         const includes: IncludeMatch[] = [];
         const text = document.getText();
         const lines = text.split('\n');
 
         for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
             const line = lines[lineIndex];
-            
+
             for (const pattern of patterns) {
                 const regex = new RegExp(pattern, 'g');
                 let match;
-                
+
                 while ((match = regex.exec(line)) !== null) {
                     const filePath = match[1]; // First capture group should be the file path
                     const startPos = new vscode.Position(lineIndex, match.index);
                     const endPos = new vscode.Position(lineIndex, match.index + match[0].length);
                     const range = new vscode.Range(startPos, endPos);
-                    
+
                     includes.push({
                         range,
                         filePath,
@@ -98,10 +98,10 @@ export class HugoIncludeProvider {
 
             // Read file content
             const content = fs.readFileSync(filePath, 'utf8');
-            
+
             // Cache the content
             this.cache.set(filePath, content);
-            
+
             return content;
         } catch (error) {
             console.error(`Error reading include file ${filePath}:`, error);
@@ -120,7 +120,7 @@ export class HugoIncludeProvider {
 
         const config = vscode.workspace.getConfiguration('hugo-include-viewer');
         const maxLines = config.get<number>('maxPreviewLines', 50);
-        
+
         const lines = content.split('\n');
         if (lines.length <= maxLines) {
             return content;

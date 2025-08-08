@@ -4,6 +4,9 @@ All notable changes to the "Hugo Include Viewer" extension will be documented in
 
 ## [Unreleased]
 
+### Added
+- Support for `{{< code file="..." >}}` shortcode pattern
+
 ### Planned Features
 - Support for TOML and JSON front matter in included files
 - Inline content expansion directly in the editor
@@ -35,3 +38,4 @@ All notable changes to the "Hugo Include Viewer" extension will be documented in
 - `{{< include "file.md" >}}` - Hugo shortcode includes
 - `{{ partial "partials/header.html" . }}` - Hugo partials
 - `{{< readfile "content/snippets/example.py" >}}` - File content includes
+- `{{< code file="path/to/file.py" >}}` - Hugo code shortcode includes

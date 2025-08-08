@@ -11,13 +11,13 @@ export class HugoHoverProvider implements vscode.HoverProvider {
     ): Promise<vscode.Hover | undefined> {
         const config = vscode.workspace.getConfiguration('hugo-include-viewer');
         const enabled = config.get<boolean>('enableHoverPreview', true);
-        
+
         if (!enabled) {
             return undefined;
         }
 
         const includes = this.includeProvider.findIncludes(document);
-        
+
         // Find if the cursor is over an include statement
         const include = includes.find(inc => inc.range.contains(position));
         if (!include) {
@@ -43,7 +43,7 @@ export class HugoHoverProvider implements vscode.HoverProvider {
 
             const markdown = new vscode.MarkdownString();
             markdown.appendMarkdown(`**📄 ${include.filePath}**\n\n`);
-            
+
             // Detect file type for syntax highlighting
             const fileExtension = resolvedPath.split('.').pop()?.toLowerCase() || '';
             const languageMap: { [key: string]: string } = {
@@ -59,10 +59,10 @@ export class HugoHoverProvider implements vscode.HoverProvider {
                 'py': 'python',
                 'go': 'go'
             };
-            
+
             const language = languageMap[fileExtension] || 'text';
             markdown.appendCodeblock(preview, language);
-            
+
             markdown.appendMarkdown(`\n\n[Open file](command:hugo-include-viewer.showInclude?${encodeURIComponent(JSON.stringify([resolvedPath]))})`);
 
             return new vscode.Hover(markdown, include.range);

@@ -10,7 +10,7 @@ export class HugoCodeLensProvider implements vscode.CodeLensProvider {
     ): Promise<vscode.CodeLens[]> {
         const config = vscode.workspace.getConfiguration('hugo-include-viewer');
         const enabled = config.get<boolean>('enableCodeLens', true);
-        
+
         if (!enabled) {
             return [];
         }
@@ -20,7 +20,7 @@ export class HugoCodeLensProvider implements vscode.CodeLensProvider {
 
         for (const include of includes) {
             const resolvedPath = this.includeProvider.resolveIncludePath(document, include.filePath);
-            
+
             if (resolvedPath) {
                 // "Show Include Content" lens
                 const showLens = new vscode.CodeLens(include.range, {

@@ -10,6 +10,7 @@ A Visual Studio Code extension that provides inline preview and navigation for i
 - `{{< include "file.md" >}}`
 - `{{ partial "partials/header.html" . }}`
 - `{{< readfile "content/snippets/example.py" >}}`
+- `{{< code file="path/to/file.py" >}}`
 
 ✨ **Smart Path Resolution**: Automatically resolves include paths across common Hugo directories:
 - Relative to current file
@@ -51,7 +52,8 @@ The extension provides several configuration options:
   "hugo-include-viewer.includePatterns": [
     "{{<\\s*include\\s+[\"']([^\"']+)[\"'].*?>}}",
     "{{\\s*partial\\s+[\"']([^\"']+)[\"'].*?}}",
-    "{{<\\s*readfile\\s+[\"']([^\"']+)[\"'].*?>}}"
+    "{{<\\s*readfile\\s+[\"']([^\"']+)[\"'].*?>}}",
+    "{{<\\s*code\\s+file=[\"']([^\"']+)[\"'].*?>}}"
   ]
 }
 ```
@@ -64,6 +66,7 @@ The extension recognizes these Hugo include patterns by default:
 ```hugo
 {{< include "path/to/file.md" >}}
 {{< readfile "content/snippets/example.py" >}}
+{{< code file="path/to/file.py" >}}
 ```
 
 ### Partials
