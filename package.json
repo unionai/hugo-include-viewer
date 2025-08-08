@@ -1,0 +1,111 @@
+{
+  "name": "hugo-include-viewer",
+  "displayName": "Hugo Include Viewer",
+  "description": "A VS Code extension that shows the contents of included files inline within Hugo projects",
+  "version": "0.1.0",
+  "publisher": "ppiegaze",
+  "author": {
+    "name": "ppiegaze"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.97.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/unionai/hugo-include-viewer"
+  },
+  "homepage": "https://github.com/unionai/hugo-include-viewer#readme",
+  "bugs": {
+    "url": "https://github.com/unionai/hugo-include-viewer/issues"
+  },
+  "keywords": [
+    "hugo",
+    "include",
+    "preview",
+    "inline",
+    "markdown",
+    "static site",
+    "documentation",
+    "partials"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "galleryBanner": {
+    "color": "#0066CC",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onLanguage:markdown",
+    "onLanguage:html",
+    "onLanguage:hugo"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "hugo-include-viewer.refreshIncludes",
+        "title": "Refresh Include Previews",
+        "category": "Hugo Include Viewer"
+      },
+      {
+        "command": "hugo-include-viewer.togglePreview",
+        "title": "Toggle Include Preview",
+        "category": "Hugo Include Viewer"
+      },
+      {
+        "command": "hugo-include-viewer.showInclude",
+        "title": "Show Include Content",
+        "category": "Hugo Include Viewer"
+      }
+    ],
+    "configuration": {
+      "title": "Hugo Include Viewer",
+      "properties": {
+        "hugo-include-viewer.enableInlinePreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable inline preview of included files"
+        },
+        "hugo-include-viewer.enableHoverPreview": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable hover preview of included files"
+        },
+        "hugo-include-viewer.enableCodeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable CodeLens for included files"
+        },
+        "hugo-include-viewer.maxPreviewLines": {
+          "type": "number",
+          "default": 50,
+          "description": "Maximum number of lines to show in inline preview"
+        },
+        "hugo-include-viewer.includePatterns": {
+          "type": "array",
+          "default": [
+            "{{<\\s*include\\s+[\"']([^\"']+)[\"'].*?>}}",
+            "{{\\s*partial\\s+[\"']([^\"']+)[\"'].*?}}",
+            "{{<\\s*readfile\\s+[\"']([^\"']+)[\"'].*?>}}"
+          ],
+          "description": "Regular expression patterns to match include statements"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.97.0",
+    "@types/node": "20.x",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  }
+}
